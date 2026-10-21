@@ -4,54 +4,86 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Calculator</title>
+    <title>Advanced Calculator</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
-<body>
+<body class="light-mode">
 
-    <div class="calculator">
+    <div class="main-container">
+        <div class="calculator">
 
-        <header class="calculator-header">
-            <div class="calculator-icon">✳</div>
-            <h1>My Calculator</h1>
-            <p class="subtitle">Simple. Fast. Accurate.</p>
-        </header>
+            <header class="calculator-header">
+                <div class="calculator-icon">✳</div>
+                <h1>Advanced Calc</h1>
+                <p class="subtitle">Professional Grade Precision</p>
+            </header>
 
-        <div class="display-container">
-            <span class="display-label">YOUR CALCULATION</span>
-            <input type="text" id="display" value="0" readonly aria-label="Calculator display">
+            <div class="display-container">
+                <span class="display-label">YOUR CALCULATION</span>
+                <input type="text" id="display" value="0" readonly aria-label="Calculator display">
+            </div>
+
+            <div class="buttons">
+                <!-- Row 1: Memory -->
+                <button type="button" data-action="memory" data-value="MC" class="mem">MC</button>
+                <button type="button" data-action="memory" data-value="MR" class="mem">MR</button>
+                <button type="button" data-action="memory" data-value="M-" class="mem">M-</button>
+                <button type="button" data-action="memory" data-value="M+" class="mem">M+</button>
+
+                <!-- Row 2: System/Mod -->
+                <button type="button" data-action="clear" class="clear">AC</button>
+                <button type="button" data-action="scientific" data-value="toggleSign" class="sci">+/-</button>
+                <button type="button" data-action="scientific" data-value="percent" class="sci">%</button>
+                <button type="button" data-action="scientific" data-value="sqrt" class="sci">√</button>
+
+                <!-- Row 3: Exponents/High-Priority Ops -->
+                <button type="button" data-action="scientific" data-value="sqr" class="sci">x²</button>
+                <button type="button" data-action="operator" data-value="^" class="operator">^</button>
+                <button type="button" data-action="operator" data-value="/" class="operator">÷</button>
+                <button type="button" data-action="operator" data-value="*" class="operator">×</button>
+
+                <!-- Row 4: 7-9 and Subtraction -->
+                <button type="button" data-action="number" data-value="7" class="num">7</button>
+                <button type="button" data-action="number" data-value="8" class="num">8</button>
+                <button type="button" data-action="number" data-value="9" class="num">9</button>
+                <button type="button" data-action="operator" data-value="-" class="operator">−</button>
+
+                <!-- Row 5: 4-6 and Addition -->
+                <button type="button" data-action="number" data-value="4" class="num">4</button>
+                <button type="button" data-action="number" data-value="5" class="num">5</button>
+                <button type="button" data-action="number" data-value="6" class="num">6</button>
+                <button type="button" data-action="operator" data-value="+" class="operator">+</button>
+
+                <!-- Row 6 & 7: 1-3, 0, ., and = -->
+                <button type="button" data-action="number" data-value="1" class="num">1</button>
+                <button type="button" data-action="number" data-value="2" class="num">2</button>
+                <button type="button" data-action="number" data-value="3" class="num">3</button>
+                <button type="button" data-action="equals" class="equals row-span-2">=</button>
+
+                <button type="button" data-action="number" data-value="0" class="num col-span-2">0</button>
+                <button type="button" data-action="number" data-value="." class="num">.</button>
+            </div>
+
+            <div class="calculator-footer">
+                <button id="themeToggle" type="button">
+                    Switch to Dark Mode
+                </button>
+                <p>Advanced Computing Engine</p>
+            </div>
+
         </div>
 
-        <div class="buttons">
-            <button type="button" onclick="clearDisplay()" class="clear">AC</button>
-            <button type="button" onclick="addValue('7')">7</button>
-            <button type="button" onclick="addValue('8')">8</button>
-            <button type="button" onclick="addValue('9')">9</button>
-
-            <button type="button" onclick="addValue('4')">4</button>
-            <button type="button" onclick="addValue('5')">5</button>
-            <button type="button" onclick="addValue('6')">6</button>
-            <button type="button" onclick="addValue('3')">3</button>
-
-            <button type="button" onclick="addValue('1')">1</button>
-            <button type="button" onclick="addValue('2')">2</button>
-            <button type="button" onclick="addValue('0')">0</button>
-            <button type="button" onclick="addValue('+')" class="operator">+</button>
-
-            <button type="button" onclick="addValue('-')" class="operator">−</button>
-            <button type="button" onclick="addValue('*')" class="operator">×</button>
-            <button type="button" onclick="addValue('/')" class="operator">÷</button>
-            <button type="button" onclick="calculate()" class="equals">=</button>
-        </div>
-
-        <div class="calculator-footer">
-            <button id="themeToggle" type="button">
-                Switch to Dark Mode
-            </button>
-            <p>Made for everyday calculations</p>
-        </div>
-
+        <!-- History Sidebar -->
+        <aside class="history-sidebar">
+            <div class="history-header">
+                <h3>History</h3>
+                <button id="clearHistory" class="clear-btn">Clear All</button>
+            </div>
+            <div id="history-list" class="history-list">
+                <p class="empty-msg">No history yet</p>
+            </div>
+        </aside>
     </div>
 
     <script src="script.js"></script>
