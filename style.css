@@ -15,6 +15,10 @@
     --border-color: #e8eaf3;
     --shadow-color: rgba(42, 53, 92, 0.12);
     --accent: #6957e8;
+
+    /* Sidebar colors */
+    --sidebar-bg: #f8f9ff;
+    --history-item-bg: #ffffff;
 }
 
 body.dark-mode {
@@ -32,6 +36,10 @@ body.dark-mode {
     --border-color: #35435b;
     --shadow-color: rgba(0, 0, 0, 0.3);
     --accent: #8b7bff;
+
+    /* Sidebar colors */
+    --sidebar-bg: #162031;
+    --history-item-bg: #1d2a40;
 }
 
 /* ---------- Page layout ---------- */
@@ -56,11 +64,20 @@ body {
     transition: background-color 0.3s, color 0.3s;
 }
 
+.main-container {
+    display: flex;
+    gap: 24px;
+    align-items: flex-start;
+    max-width: 800px;
+    width: 100%;
+    justify-content: center;
+}
+
 /* ---------- Calculator card ---------- */
 
 .calculator {
-    width: 100%;
-    max-width: 360px;
+    flex: 1;
+    max-width: 400px;
     padding: 28px;
 
     background: var(--card-bg);
@@ -150,7 +167,7 @@ h1 {
 
 .buttons {
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(4, 1fr);
     gap: 10px;
 }
 
@@ -187,6 +204,16 @@ button {
     transform: scale(0.95);
 }
 
+/* Grid Spans */
+
+.col-span-2 {
+    grid-column: span 2;
+}
+
+.row-span-2 {
+    grid-row: span 2;
+}
+
 /* Clear button */
 
 .buttons .clear {
@@ -209,6 +236,30 @@ button {
     background: #ddd7ff;
 }
 
+/* Scientific buttons */
+
+.buttons .sci {
+    background: #e7f5ff;
+    color: #1971c2;
+    font-size: 15px;
+}
+
+.buttons .sci:hover {
+    background: #d0ebff;
+}
+
+/* Memory buttons */
+
+.buttons .mem {
+    background: #f1f3f5;
+    color: #495057;
+    font-size: 14px;
+}
+
+.buttons .mem:hover {
+    background: #e9ecef;
+}
+
 /* Equals button */
 
 .buttons .equals {
@@ -223,7 +274,7 @@ button {
     background: #5845d5;
 }
 
-* Dark mode button colors */
+/* Dark mode overrides */
 
 body.dark-mode .buttons .clear {
     background: #512d3a;
@@ -241,6 +292,31 @@ body.dark-mode .buttons .operator {
 
 body.dark-mode .buttons .operator:hover {
     background: #514981;
+}
+
+body.dark-mode .buttons .sci {
+    background: #1a365d;
+    color: #63b3ed;
+}
+
+body.dark-mode .buttons .sci:hover {
+    background: #2a4365;
+}
+
+body.dark-mode .buttons .mem {
+    background: #2c3e50;
+    color: #bdc3c7;
+}
+
+body.dark-mode .buttons .mem:hover {
+    background: #34495e;
+}
+
+/* Equals button in Dark Mode */
+
+body.dark-mode .buttons .equals {
+    background: var(--accent);
+    color: white;
 }
 
 /* ---------- Theme toggle ---------- */
@@ -262,6 +338,8 @@ body.dark-mode .buttons .operator:hover {
     border-radius: 30px;
     font-size: 13px;
     font-weight: bold;
+    border: none;
+    cursor: pointer;
 }
 
 #themeToggle::before {
@@ -291,6 +369,90 @@ body.dark-mode #themeToggle::before {
     font-size: 11px;
 }
 
+/* ---------- History Sidebar ---------- */
+
+.history-sidebar {
+    width: 280px;
+    max-height: 600px;
+    background: var(--sidebar-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 24px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.history-header {
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.history-header h3 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.clear-btn {
+    background: transparent;
+    border: 1px solid var(--muted-color);
+    color: var(--muted-color);
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.clear-btn:hover {
+    background: var(--muted-color);
+    color: var(--card-bg);
+}
+
+.history-list {
+    flex: 1;
+    padding: 10px;
+    overflow-y: auto;
+}
+
+.history-item {
+    padding: 12px;
+    margin-bottom: 8px;
+    background: var(--history-item-bg);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: transform 0.1s, background-color 0.2s;
+    border: 1px solid var(--border-color);
+}
+
+.history-item:hover {
+    transform: scale(1.02);
+    background: var(--button-hover);
+}
+
+.history-item .exp {
+    display: block;
+    font-size: 12px;
+    color: var(--muted-color);
+    margin-bottom: 4px;
+}
+
+.history-item .res {
+    display: block;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: right;
+}
+
+.empty-msg {
+    text-align: center;
+    color: var(--muted-color);
+    font-size: 14px;
+    margin-top: 40px;
+}
+
 /* ---------- Keyboard accessibility ---------- */
 
 button:focus-visible {
@@ -298,7 +460,20 @@ button:focus-visible {
     outline-offset: 3px;
 }
 
-/* ---------- Smaller screens ---------- */
+/* ---------- Responsive Design ---------- */
+
+@media (max-width: 768px) {
+    .main-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .history-sidebar {
+        width: 100%;
+        max-width: 400px;
+        max-height: 300px;
+    }
+}
 
 @media (max-width: 380px) {
     .calculator {
@@ -306,12 +481,9 @@ button:focus-visible {
         border-radius: 20px;
     }
 
-    .buttons {
-        gap: 8px;
-    }
-
     .buttons button {
-        height: 50px;
+        height: 45px;
+        font-size: 15px;
     }
 
     #display {
@@ -322,7 +494,6 @@ button:focus-visible {
 /* Respect reduced-motion preferences */
 
 @media (prefers-reduced-motion: reduce) {
-
     *,
     *::before,
     *::after {
